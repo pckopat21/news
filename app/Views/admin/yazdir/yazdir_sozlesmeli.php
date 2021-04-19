@@ -1,28 +1,4 @@
-<?php 
-include '../netting/baglan.php';
-$ayarsor=$db->prepare("SELECT * FROM ayar where ayar_id=:id");
-$ayarsor->execute(array(
-  'id' => 0
-));
-$ayarcek=$ayarsor->fetch(PDO::FETCH_ASSOC);
 
-$izinsor=$db->prepare("SELECT p.personel_adres,d.durum_ad,u.unvan_ad,p.personel_adsoyad,p.personel_tc,p.personel_sicilno,it.izin_ad,i.izin_tarih,
-i.izin_adresi,i.izin_yil,i.izin_baslayis,i.izin_suresi,p.personel_telefon from izin_calisan_haklari ich
-inner JOIN durum d on d.durum_id=ich.calisan_statu_id
-inner JOIN personel p on p.unvan_id=d.durum_id
-inner JOIN izin i on i.izin_personel=p.personel_id and ich.izin_tur_id=i.izin_turid
-inner JOIN unvan u on u.unvan_id=p.personel_unvan 
-inner JOIN izin_turleri it on it.izin_turid=ich.izin_tur_id
-WHERE p.personel_durum='1'
-and i.izin_durum='1'
-and p.unvan_id='1' 
-and i.izin_id=:id");
-$izinsor->execute(array(
-  'id' => $_GET['izin_id']
-));
-
-$izincek=$izinsor->fetch(PDO::FETCH_ASSOC);
-?>
 <html>
 <head>
     <title> &nbsp; </title>
@@ -64,7 +40,7 @@ KARAYOLLARI GENEL MÜDÜRLÜĞÜ<br>
                     <td width="1062" height="67" colspan="5">
                         <p align="left"><font face="Times New Roman" style="font-size:14pt;"><span>
 <p align="center"><font size="4"><b>KARAYOLLARI 5. BÖLGE MÜDÜRLÜĞÜNE</b></font></p> <br>
-&emsp;&emsp;&emsp;657 Sayılı Devlet Memurları Kanunun 4.maddesinin B fıkrası ile Sözleşmeli Personel Sözleşmesinin 7. Maddesine <br>&emsp;göre <?php echo date("d.m.Y",strtotime($izincek['izin_baslayis'])) ?> tarihinden geçerli olmak üzere <?php echo $izincek['izin_yil'] ?> yılına mahsuben <?php echo $izincek['izin_suresi'] ?> (<?php echo yaziylasayi($izincek['izin_suresi']) ?>) günlük senelik izin verilmesini arz ederim.
+&emsp;&emsp;&emsp;657 Sayılı Devlet Memurları Kanunun 4.maddesinin B fıkrası ile Sözleşmeli Personel Sözleşmesinin 7. Maddesine <br>&emsp;göre <?php echo date("d.m.Y",strtotime($izin_yazdir->izin_baslayis)) ?> tarihinden geçerli olmak üzere <?=$izin_yazdir->izin_yil ?> yılına mahsuben <?=$izin_yazdir->izin_suresi ?> (<?php echo yaziylasayi($izin_yazdir->izin_suresi) ?>) günlük senelik izin verilmesini arz ederim.
 <br>
 &nbsp;</span></font></p>
                     </td>
@@ -80,26 +56,26 @@ KARAYOLLARI GENEL MÜDÜRLÜĞÜ<br>
                 </tr>
                 <tr>
                     <td width="137" height="17" colspan="2"><b><font face="Times New Roman"><span style="font-size:14pt;">&nbsp;T.C. Kimlik No</span></font></b></td>
-                    <td width="925" height="17" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?php echo $izincek['personel_tc']; ?></span></td>
+                    <td width="925" height="17" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?=$izin_yazdir->personel_tc; ?></span></td>
                 </tr>
                 <tr>
                     <td width="137" height="18" colspan="2"><b><font face="Times New Roman"><span style="font-size:14pt;">&nbsp;Sicil No</span></font></b></td>
-                    <td width="925" height="18" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?php echo $izincek['personel_sicilno']; ?></span></td>
+                    <td width="925" height="18" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?=$izin_yazdir->personel_sicilno; ?></span></td>
                 </tr>
                 <tr>
                     <td width="137" height="24" colspan="2"><b><font face="Times New Roman"><span style="font-size:14pt;">&nbsp;Adı, Soyadı</span></font></b></td>
-                    <td width="925" height="24" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?php echo $izincek['personel_adsoyad'] ?></span></td>
+                    <td width="925" height="24" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?=$izin_yazdir->personel_adsoyad ?></span></td>
                 </tr>
                 <tr>
                     <td width="137" height="12" colspan="2"><b><font face="Times New Roman"><span style="font-size:14pt;">&nbsp;Görevi</span></font></b></td>
-                    <td width="925" height="12" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?php echo $izincek['unvan_ad']; ?></span></td>
+                    <td width="925" height="12" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?=$izin_yazdir->unvan_ad; ?></span></td>
                 </tr>
                     <td width="137" height="12" colspan="2"><b><font face="Times New Roman"><span style="font-size:14pt;">&nbsp;Tel</span></font></b></td>
-                    <td width="925" height="12" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> 0<?php echo $izincek['personel_telefon']; ?></span></td>
+                    <td width="925" height="12" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> 0<?=$izin_yazdir->personel_telefon; ?></span></td>
                 </tr>
                 <tr>
                     <td width="137" height="11" colspan="2"><b><font face="Times New Roman"><span style="font-size:14pt;">&nbsp;İzin Adresi</span></font></b></td>
-                    <td width="925" height="11" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?php if ($izincek['izin_adresi'] == is_null(0)) echo $izincek["personel_adres"]; else echo $izincek['izin_adresi']; ?></span></td>
+                    <td width="925" height="11" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?php if ($izin_yazdir->izin_adresi == is_null(0)) echo $izin_yazdir->personel_adres; else echo $izin_yazdir->izin_adresi; ?></span></td>
                 </tr>
                 <tr>
                     <td width="137" height="15" colspan="2"><span style="font-size:14pt;">&nbsp;</span></td>
@@ -115,13 +91,13 @@ KARAYOLLARI GENEL MÜDÜRLÜĞÜ<br>
                 <tr>
                     <td width="862" height="22" colspan="3">&nbsp;</td>
                     <td width="200" height="22" colspan="2">
-                        <p align="center"><b><span style="font-size:14pt;"><font face="Times New Roman"><?php echo $ayarcek['ayar_yonetici'] ?></font></span></b></p>
+                        <p align="center"><b><span style="font-size:14pt;"><font face="Times New Roman"><?= $ayar->ayar_yonetici ?></font></span></b></p>
                     </td>
                 </tr>
                 <tr>
                     <td width="862" height="10" colspan="3">&nbsp;</td>
                     <td width="200" height="10" colspan="2">
-                        <p align="center"><b><span style="font-size:14pt;"><font face="Times New Roman"><?php echo $ayarcek['ayar_yoneticiunvan'] ?></font></span></b></p>
+                        <p align="center"><b><span style="font-size:14pt;"><font face="Times New Roman"><?= $ayar->ayar_yoneticiunvan ?></font></span></b></p>
                     </td>
                 </tr>
                 <tr>
