@@ -72,8 +72,8 @@ class Izin_model
     {
         $builder = $this->db->table('izin_calisan_haklari ich');
         $builder->select('i.izin_saglikkurumu,d.durum_ad,u.unvan_ad,p.personel_adsoyad,p.personel_tc,
-        p.personel_sicilno,it.izin_ad,i.izin_tarih,
-        i.izin_adresi,i.izin_yil,i.izin_baslayis,i.izin_suresi,p.personel_telefon');
+        p.personel_sicilno,it.izin_ad,i.izin_tarih,p.personel_adres,
+        i.izin_adresi,i.izin_yil,i.izin_baslayis,i.izin_suresi,p.personel_telefon,p.personel_isegiristarih');
         $builder->join('durum d',' d.durum_id=ich.calisan_statu_id','INNER');
         $builder->join('personel p','p.unvan_id=d.durum_id','INNER');
         $builder->join('izin i','i.izin_personel=p.personel_id and ich.izin_tur_id=i.izin_turid','INNER');
