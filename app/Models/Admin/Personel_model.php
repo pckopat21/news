@@ -74,7 +74,6 @@ class Personel_model
 
 
     }
-
     /*public function personel_detay($where = array())//one dediği tek bir listelemedir
     {
         return $this-> db-> query("SELECT * FROM personel p inner join unvan u on u.unvan_id=p.personel_unvan
@@ -120,6 +119,16 @@ ORDER BY g.gorev_id")->getresult();
         return $this->db->query("SELECT COUNT(*) as count  from personel p
 inner join gorev g on g.gorev_id=p.personel_gorev
 where p.personel_durum='1'")->getresult();
+    }
+    public function bildirim_dogumgunu($where = array())
+    {
+        $builder = $this->db->table("personel p");
+        $builder->select('TIMESTAMPDIFF(YEAR, p.personel_dogumtarihi, CURDATE()) as yas,
+        p.personel_id,p.personel_adsoyad,p.personel_dogumtarihi,p.personel_resim');
+        $builder->where('DAY(p.personel_dogumtarihi) = DAY(CURDATE())');
+        $builder->where('month(p.personel_dogumtarihi) = month(CURDATE())');
+        $data = $builder->get()->getResult();
+        return $data;
     }
     public function c_all($where = array())//burada ise hepsini listeleme
     {
