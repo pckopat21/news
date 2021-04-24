@@ -23,7 +23,7 @@
                             <th>İzin Başlangıcı</th>
                             <th>İzin Bitişi</th>
                             <th>İşe Başlama</th>
-                            <th>İzin Süresi</th>
+                            <th>Süresi</th>
                             <th>Yazdır</th>
                             <th>İşlem</th>
                         </tr>
@@ -68,7 +68,7 @@
                                                 <a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdir_sozlesmelievlilik/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
                                             <?php }
                                             ?></center></td>
-                                    <td><button data-url="<?= base_url("{$mf}/delete/$izin->izin_id")?>" class="btn btn-danger btn-xs delete-buton">Silme İşlemi</button></td>
+                                    <td><button data-url="<?= base_url("{$mf}/delete/$izin->izin_id")?>" class="btn btn-danger btn-xs delete-buton">Sil</button></td>
                                 </tr>
                             <?php } ?>
                         <?php } ?>
