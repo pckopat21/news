@@ -21,9 +21,6 @@
                                     <?php } ?>
                                 </select>
                             </div>
-
-
-
                             <div class="form-group col-md-3">
                                 <label for="validationCustom04" class="form-label">Kullanıcı Durumu </label>
                                 <select class="form-control" name="kullanici_durum" id="validationCustom04" required>
