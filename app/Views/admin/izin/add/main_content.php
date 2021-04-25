@@ -10,7 +10,7 @@
                                 <select class="form-control" name="izin_personel" id="validationCustom04" required>
                                     <option selected disabled value="">Lütfen Seçim Yapınız</option>
                                     <?php foreach ($personel as $personel) { ?>
-                                        <option  value="<?= $personel->personel_id; ?>"><?= $personel->personel_adsoyad."-".$personel->durum_ad; ?></option>
+                                        <option  value="<?= $personel->personel_id; ?>" data-unvan-id="<?= $personel->unvan_id ?>"> <?= $personel->personel_adsoyad."-".$personel->durum_ad; ?></option>
                                     <?php } ?>
                                 </select>
                                 <div class="invalid-feedback">Lütfen Seçim Yapınız.</div>
@@ -63,7 +63,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="validationCustom01" class="form-label">İzin Adresi</label>
-                                <input type="text" class="form-control" oninput="addNewDate()" name="izin_adresi" id="validationCustom01" placeholder="Açıklama" >
+                                <input type="text" class="form-control"  name="izin_adresi" id="validationCustom01" placeholder="Açıklama" >
                             </div>
 
                             <div class="form-group col-12">

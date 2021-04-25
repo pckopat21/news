@@ -1,39 +1,45 @@
 <?php
 namespace App\Controllers\Admin;
-use App\Controllers\BaseController;
-use App\Models\Admin\Izin_Model;
+use App\Controllers\MyBaseController;
 use App\Models\Admin\Izin_turleri_model;
-use App\Models\Admin\Personel_model;
-
 use Config\Services;
 //$ip = $_SERVER['HTTP_CLIENT_IP']; //$this->input->ip_address() ;
 //$ip = $this->input->ip_address();
 //$localip = $HTTP_SERVER_VARS['HTTP_X_FORWARDED_FOR'];
-class Izin extends BaseController
+class Izin extends MyBaseController
 {
+    /**
+     * @var Izin_turleri_model
+     */
+    private $izinturleriModel;
+
     public function __construct()
     {
-        helper(["Tools_helper"]);
-        $db = db_connect();
-        $this->izinModel = new Izin_model($db);
-        $this->personelModel = new Personel_model($db);
-        $this->izinturleriModel = new Izin_turleri_model($db);
+        parent::__construct();
+        $this->izinturleriModel = new Izin_turleri_model($this->db);
     }
+
     public function index()
     {
-        $data = [];
-        $data["title"] = "İzinler";
-        $data["subtitle"] = "İzin Listele";
-        $data["main"] = "admin";
-        $data["mf"] = "izin";
-        $data["sf"] = "list";
+        $this->data = [];
+        $this->data["title"] = "İzinler";
+        $this->data["subtitle"] = "İzin Listeqqle";
+        $this->data["main"] = "admin";
+        $this->data["mf"] = "izin";
+        $this->data["sf"] = "list";
+
+        $this->data["izin"] = $this->izinModel->izin(array());
+        $this->data["bildirim_baslayis"] = $this->izinModel->bildirim_baslayis(array());
+
+        return parent::run_view();
+
+//        $data["title"] = "İzinler";
+//        $data["subtitle"] = "İzin Listeqqle";
         /*$db = db_connect();
         $kategorilerModel = new Kategoriler_model($db);dinamik yapı açısından constrxcın oraya aldık
         $data["kategoriler"] = $kategorilerModel->c_all(); bunu da düzenlemim gerekiyor bu kez de*/
-        $data["izin"] = $this->izinModel->izin(array());
-        $data["bildirim_baslayis"] = $this->izinModel->bildirim_baslayis(array());
 
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+
     }
     public function add()
     {
@@ -45,8 +51,8 @@ class Izin extends BaseController
         $data["sf"] = "add";
         $data["personel"] = $this->personelModel->personel_izin(array());
         $data["izin_turleri"] = $this->izinturleriModel->izin_turleri(array());
-
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data = $data;
+        return parent::run_view();
     }
     public function add_form()
     {

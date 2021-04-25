@@ -59,8 +59,9 @@ class Izin_model
     }
     public function izin_listesi($where = array())
     {
-        return $this->db->query("SELECT datediff(i.izin_isebaslayis,i.izin_baslayis) as tarihfark,
-        i.izin_baslayis,i.izin_bitis,i.izin_isebaslayis,i.izin_yil,p.personel_adsoyad,u.unvan_ad,d.durum_ad,it.izin_ad, 
+        return $this->db->query("SELECT datediff(i.izin_isebaslayis,i.izin_baslayis) as tarihfark,i.izin_id,p.personel_sozlesmelimi,
+        i.izin_baslayis,i.izin_bitis,i.izin_turid,
+       i.izin_isebaslayis,i.izin_yil,p.personel_adsoyad,u.unvan_ad,u.unvan_id,d.durum_ad,it.izin_ad, 
         i.izin_suresi FROM personel p 
         inner join unvan u on u.unvan_id=p.personel_unvan 
         inner join durum d on d.durum_id=p.unvan_id 

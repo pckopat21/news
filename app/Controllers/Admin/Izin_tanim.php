@@ -1,6 +1,6 @@
 <?php
 namespace App\Controllers\Admin;
-use App\Controllers\BaseController;
+use App\Controllers\MyBaseController;
 use App\Models\Admin\Durum_model;
 use App\Models\Admin\Izin_Model;
 use App\Models\Admin\Izin_tanim_model;
@@ -10,16 +10,14 @@ use Config\Services;
 //$ip = $_SERVER['HTTP_CLIENT_IP']; //$this->input->ip_address() ;
 //$ip = $this->input->ip_address();
 //$localip = $HTTP_SERVER_VARS['HTTP_X_FORWARDED_FOR'];
-class Izin_tanim extends BaseController
+class Izin_tanim extends MyBaseController
 {
     public function __construct()
     {
-        helper(["Tools_helper"]);
-        $db = db_connect();
-        $this->izinModel = new Izin_model($db);
-        $this->izinturleriModel = new Izin_turleri_model($db);
-        $this->izintanimModel = new Izin_tanim_model($db);
-        $this->durumModel = new Durum_model($db);
+        parent::__construct();
+        $this->izinturleriModel = new Izin_turleri_model($this->db);
+        $this->izintanimModel = new Izin_tanim_model($this->db);
+        $this->durumModel = new Durum_model($this->db);
     }
     public function index()
     {
@@ -31,8 +29,9 @@ class Izin_tanim extends BaseController
         $data["sf"] = "list";
         $data["izin_tanim"] = $this->izintanimModel->izin_tanim(array());//bu kısım maincontent foraech için
         $data["izin_turleri"] = $this->izinturleriModel->izin_turleri(array());//bu kısım maincontent foraech için
+        $this->data=$data;
+        return parent::run_view();
 
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
     }
     public function add()
     {
@@ -45,7 +44,8 @@ class Izin_tanim extends BaseController
         $data["izin_tanim"] = $this->izintanimModel->izin_tanim(array());//bu kısım /add kısmı için
         $data["izin_turleri"] = $this->izinturleriModel->izin_turleri(array());//bu kısım maincontent foraech için
         $data["durum"] = $this->durumModel->c_all(array());//bu kısım maincontent foraech için
-
+        $this->data = $data;
+        return parent::run_view();
 
 
         return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);

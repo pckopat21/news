@@ -245,3 +245,73 @@
             })
     })()
 </script>
+<script>
+    const pazarDahilEdilecekTatilTipleri = [1];
+    const pazarDahilEdilecekUnvanTipleri = [2];
+    /*padNumber fonksiyonu gün ve ayları iki haneli göstermek için 3 ise 03 olarak yazacak*/
+    function padNumber(number) {
+        var string  = '' + number;
+        string      = string.length < 2 ? '0' + string : string;
+        return string;
+    }
+
+    function addNewDate() {
+        console.log("*** addNewDate fired")
+        var
+            baslangicTarih = document.getElementById('baslamatarihi').value,
+            izinSuresi = parseInt(document.getElementById('izin_suresi').value),
+            bitisTarih = document.getElementById('bitistarihi'),
+            iseBaslayis = document.getElementById('isebaslayis');
+        debugger;
+        if (! baslangicTarih){
+            return false;
+        }
+        const tatilGunSayisi = tatilGunSayisiniBul(new Date(baslangicTarih), izinSuresi);
+        baslangicTarih = new Date(baslangicTarih);
+        let hesaplananSure = izinSuresi + tatilGunSayisi - 1;
+        var bitisTarihiAsDate = new Date(baslangicTarih.setDate(baslangicTarih.getDate() + hesaplananSure)); //cuamrtesiye denk
+        var bitisTarihNewValue = bitisTarihiAsDate.getUTCFullYear() + '-' + padNumber(bitisTarihiAsDate.getUTCMonth()+1) + '-' + padNumber(bitisTarihiAsDate.getUTCDate());
+
+        var bitisTarihiAsDate = new Date(baslangicTarih.setDate(baslangicTarih.getDate() + (bitisTarihiAsDate.getDay() === 6 ? 2 : 1)));//cuamrtesiye denk gelirse 2 ekleyecek başlayışa
+        var iseBaslayisNewValue = bitisTarihiAsDate.getUTCFullYear() + '-' + padNumber(bitisTarihiAsDate.getUTCMonth()+1) + '-' + padNumber(bitisTarihiAsDate.getUTCDate());
+        bitisTarih.value = bitisTarihNewValue;
+        iseBaslayis.value = iseBaslayisNewValue;
+        //document.getElementById('isebaslayis').value = baslamaformated;
+    }
+
+    function tatilGunSayisiniBul(baslangicTarih, izinGunSayisi) {
+        var izinturId = parseInt(document.querySelector('select[name="izin_turid"]').value);
+
+        if (pazarDahilEdilecekTatilTipleri.indexOf(izinturId) === -1) {
+            return 0;
+        } else {
+            var
+                personelSelectBox = document.querySelector('select[name="izin_personel"]'),
+                personelId = parseInt(personelSelectBox.value),
+                personelUnvanId = parseInt(personelSelectBox.querySelector(`option[value="${personelId}"]`).getAttribute('data-unvan-id')),
+                bitisTarih = new Date(baslangicTarih.getTime()), // Basşlangıç 01 ise
+                bitisTarih = new Date(bitisTarih.setDate(bitisTarih.getDate() + izinGunSayisi)); // Bitiş 11 oluyor
+
+            if (pazarDahilEdilecekUnvanTipleri.indexOf(personelUnvanId) === -1) {
+                return 0
+            }
+
+            return pazarGunleriniSay(baslangicTarih, bitisTarih);
+
+        }
+    }
+
+    function pazarGunleriniSay(baslangicTarih, bitisTarih){
+        var start = baslangicTarih,
+            end = bitisTarih;
+        if(end <= start)return 0; //avoid infinite loop;
+        for(var count = 0; start < end; start.setDate(start.getDate() + 1)){
+            if(start.getDay() === 0) {
+                count++;
+                end.setDate(end.getDate() + 1);
+            }
+        }
+        return count;
+    }
+
+</script>
