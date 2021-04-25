@@ -23,14 +23,11 @@ class Izin extends MyBaseController
     {
         $this->data = [];
         $this->data["title"] = "İzinler";
-        $this->data["subtitle"] = "İzin Listeqqle";
+        $this->data["subtitle"] = "İzin Listeleme Ekranı";
         $this->data["main"] = "admin";
         $this->data["mf"] = "izin";
         $this->data["sf"] = "list";
-
         $this->data["izin"] = $this->izinModel->izin(array());
-        $this->data["bildirim_baslayis"] = $this->izinModel->bildirim_baslayis(array());
-
         return parent::run_view();
 
 //        $data["title"] = "İzinler";
