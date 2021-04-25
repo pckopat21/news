@@ -84,7 +84,7 @@ class Personel_model
     }*/
     public function personel_izin($where = array())
     {
-        return $this->db->query("SELECT p.personel_id,p.personel_adsoyad,d.durum_ad from personel p
+        return $this->db->query("SELECT p.unvan_id,p.personel_id,p.personel_adsoyad,d.durum_ad from personel p
         INNER JOIN durum d on d.durum_id=p.unvan_id
         WHERE p.personel_durum='1'
         ORDER BY p.personel_adsoyad")->getresult();

@@ -8,6 +8,11 @@ use App\Models\Admin\Personel_model;
 
 class _includes extends BaseController
 {
+    /**
+     * @var Izin_Model
+     */
+    private $izinModel;
+
     public function __construct()
     {
         helper(["Tools_helper"]);

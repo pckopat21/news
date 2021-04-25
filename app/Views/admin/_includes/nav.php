@@ -15,8 +15,12 @@
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-        < //?= view("{$main}/bildirim_baslayis/list/main_content")?>
-        < //?= view("{$main}/bildirim_dogumgunu/list/main_content")?>
+        <?php if (isset($bildirim_dogumgunu)){ ?>
+        <?= view("{$main}/bildirim_baslayis/list/main_content")?>
+        <?php } ?>
+        <?php if (isset($bildirim_dogumgunu)){ ?>
+        <?= view("{$main}/bildirim_dogumgunu/list/main_content")?>
+        <?php } ?>
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#"><i class="far fa-bell"></i><span class="badge badge-warning navbar-badge">15</span></a>
