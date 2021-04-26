@@ -1,20 +1,19 @@
 <?php
 namespace App\Controllers\Admin;
-use App\Controllers\BaseController;
+use App\Controllers\MyBaseController;
 use App\Models\Admin\Izin_kullanim_model;
 
 use Config\Services;
 //$ip = $_SERVER['HTTP_CLIENT_IP']; //$this->input->ip_address() ;
 //$ip = $this->input->ip_address();
 //$localip = $HTTP_SERVER_VARS['HTTP_X_FORWARDED_FOR'];
-class Izin_kullanim extends BaseController
+class Izin_kullanim extends MyBaseController
 {
-    //public $izinkullanimModel;
+    public $izinkullanimModel;
     public function __construct()
     {
-        helper(["Tools_helper"]);
-        $db = db_connect();
-        $this->izinkullanimModel = new Izin_kullanim_model($db);
+        parent::__construct();
+        $this->izinkullanimModel = new Izin_kullanim_model($this->db);
     }
     public function index()
     {
@@ -25,8 +24,9 @@ class Izin_kullanim extends BaseController
         $data["mf"] = "izin_kullanim";// yonlendirme yapılacak linktir
         $data["sf"] = "list";
         $data["izin_kullanim"] = $this->izinkullanimModel->izin_kullanim(array());
+        $this->data = $data;
+        return parent::run_view();
 
-
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
     }
 }

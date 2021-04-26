@@ -123,8 +123,9 @@ where p.personel_durum='1'")->getresult();
     public function bildirim_dogumgunu($where = array())
     {
         $builder = $this->db->table("personel p");
-        $builder->select('TIMESTAMPDIFF(YEAR, p.personel_dogumtarihi, CURDATE()) as yas,
+        $builder->select('TIMESTAMPDIFF(YEAR, p.personel_dogumtarihi, CURDATE()) as yas,u.unvan_ad,
         p.personel_id,p.personel_adsoyad,p.personel_dogumtarihi,p.personel_resim');
+        $builder->join('unvan u','u.unvan_id=p.personel_unvan','INNER');
         $builder->where('DAY(p.personel_dogumtarihi) = DAY(CURDATE())');
         $builder->where('month(p.personel_dogumtarihi) = month(CURDATE())');
         $data = $builder->get()->getResult();

@@ -47,7 +47,6 @@ abstract class MyBaseController extends BaseController
 
     public function __construct()
     {
-
         helper(["Tools_helper"]);
         $this->db = db_connect();
         $this->izinModel = new Izin_model($this->db);

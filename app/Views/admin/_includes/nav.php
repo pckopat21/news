@@ -16,12 +16,12 @@
     </ul>
     <ul class="navbar-nav ml-auto">
         <?php if (isset($bildirim_dogumgunu)){ ?>
-        <?= view("{$main}/bildirim_baslayis/list/main_content")?>
+        <?= view("admin/bildirim/bildirim_baslayis")?>
         <?php } ?>
         <?php if (isset($bildirim_dogumgunu)){ ?>
-        <?= view("{$main}/bildirim_dogumgunu/list/main_content")?>
+        <?= view("admin/bildirim/bildirim_dogumgunu")?>
         <?php } ?>
-        <!-- Notifications Dropdown Menu -->
+        <!-- Notifications Dropdown Menu yukarıdaki bildirimlerin admini {$main} di değiştirdim üst klasörlerde görsel görünmüyordu -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#"><i class="far fa-bell"></i><span class="badge badge-warning navbar-badge">15</span></a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"><span class="dropdown-item dropdown-header">15 Notifications</span>
@@ -35,8 +35,8 @@
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
-        <li class="nav-item"><a class="nav-link" data-widget="fullscreen" href="#" role="button"><i class="fas fa-expand-arrows-alt"></i></a></li>
-        <!-- <li class="nav-item"> ----burasu ayar yapılan kısım arka plan dark mode vs gibi
+        <!--<li class="nav-item"><a class="nav-link" data-widget="fullscreen" href="#" role="button"><i class="fas fa-expand-arrows-alt"></i></a></li>
+         <li class="nav-item"> ----burasu ayar yapılan kısım arka plan dark mode vs gibi
              <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                  <i class="fas fa-th-large"></i>
              </a>
