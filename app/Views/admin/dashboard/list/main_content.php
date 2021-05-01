@@ -47,10 +47,10 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php if (empty($izin)){ ?>
+                            <?php if (empty($izin_listesi)){ ?>
                                 <tr><td class="text-center" colspan="10">Henüz İçerik Eklenmemiş</td></tr>
                             <?php } else{ ?>
-                                <?php $say=0; foreach ($izin as $izin) {$say++?>
+                                <?php $say=0; foreach ($izin_listesi as $izin) {$say++?>
                                     <tr>
                                         <td><?= $say ?></td>
                                         <td><?= $izin->personel_adsoyad?></td>
