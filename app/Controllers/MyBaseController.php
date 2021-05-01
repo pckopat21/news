@@ -58,6 +58,7 @@ abstract class MyBaseController extends BaseController
     {
         $this->data['bildirim_dogumgunu'] = true;
         $this->data['bildirim_baslayis'] = true;
+        $this->data['bildirim_baslayiscount'] = true;
         $this->data["izin"] = $this->izinModel->izin(array());
         $this->data["izin_listesi"] = $this->izinModel->izin_listesi(array());
         $this->data["personel_kart"] = $this->personelModel->personel_kart(array());
@@ -65,6 +66,7 @@ abstract class MyBaseController extends BaseController
         $this->data["personel_listesi"] = $this->personelModel->personel_listesi(array());
         $this->data["bildirim_dogumgunu"] = $this->personelModel->bildirim_dogumgunu(array());
         $this->data["bildirim_baslayis"] = $this->izinModel->bildirim_baslayis(array());
+        $this->data["bildirim_baslayiscount"] = $this->izinModel->bildirim_baslayiscount(array());
         $this->data["dashboard"] = $this->ayarModel->c_all(array());
 
         $this->viewName = "{$this->data['main']}/{$this->data['mf']}/{$this->data['sf']}/index";

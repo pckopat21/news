@@ -1,6 +1,9 @@
 <li class="nav-item dropdown">
-    <a class="nav-link" data-toggle="dropdown" href="#"><i class="fas fa-users"></i><span class="badge badge-danger navbar-badge">3</span></a>
+    <a class="nav-link" data-toggle="dropdown" href="#"><i class="fas fa-users"></i><span class="badge badge-success navbar-badge">
+            <!--<//?php if($bildirim_baslayiscount->countAllResults() > 0) echo 2?> -->
+        </span></a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"><span class="dropdown-item dropdown-header">Bugün Başlayış Yapanlar</span>
+
         <?php $say = 0; foreach ($bildirim_baslayis as $bildirim_baslayis) { $say++  ?>
         <div class="dropdown-divider"></div>
         <a href="#" class="dropdown-item">

@@ -23,6 +23,7 @@ class Bildirim_baslayis extends BaseController
         $data["mf"] = "bildirim_baslayis";
         $data["sf"] = "list";
         $data["bildirim_baslayis"] = $this->izinModel->bildirim_baslayis(array());
+       // $data["bildirim_baslayiscount"] = $this->izinModel->bildirim_baslayiscount(array());
         $data["bildirim"] = $this->personelModel->c_all(array());
 
         return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);

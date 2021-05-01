@@ -57,6 +57,26 @@ class Izin_model
           order by personel_adsoyad ASC")->getResult();
 
     }
+    public function bildirim_baslayiscount($where = array())
+    {
+        $builder = $this->db->table('izin');
+        $builder->selectCount('izin_onay');;
+        $builder->where('izin_onay',"1");
+        $builder->where('izin_durum',"1");
+        $data = $builder->get()->getRow();
+        return $data;
+
+    }
+    public function bildirim_izinonay($where = array())
+    {
+        $builder = $this->db->table('izin');
+        $builder->select('*');
+        $builder->where('izin_onay',"1");
+        $builder->where('izin_durum',"1");
+        $data = $builder->get()->getResult();
+        return $data;
+
+    }
     public function izin_listesi($where = array())
     {
         return $this->db->query("SELECT datediff(i.izin_isebaslayis,i.izin_baslayis) as tarihfark,i.izin_id,p.personel_sozlesmelimi,
