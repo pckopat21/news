@@ -1,26 +1,24 @@
 <?php
 namespace App\Controllers\Admin;
-use App\Controllers\BaseController;
+use App\Controllers\MyBaseController;
 use App\Models\Admin\Izin_kullanim_model;
-use App\Models\Admin\Personel_model;
 use App\Models\Admin\Durum_model;
 use App\Models\Admin\Gorev_model;
 use App\Models\Admin\Unvan_model;
 use App\Models\Admin\Gorevyeri_model;
 use Config\Services;
 
-class Personel_profil extends BaseController
+class Personel_profil extends MyBaseController
 {
     public function __construct()
     {
-        helper(["Tools_helper"]);
-        $db = db_connect();
-        $this->personelModel = new Personel_model($db);
-        $this->durumModel = new Durum_model($db);
-        $this->gorevModel = new Gorev_model($db);
-        $this->unvanModel = new Unvan_model($db);
-        $this->gorevyeriModel = new Gorevyeri_model($db);
-        $this->izinkullanimModel = new Izin_kullanim_model($db);
+        parent::__construct();
+
+        $this->durumModel = new Durum_model($this->db);
+        $this->gorevModel = new Gorev_model($this->db);
+        $this->unvanModel = new Unvan_model($this->db);
+        $this->gorevyeriModel = new Gorevyeri_model($this->db);
+        $this->izinkullanimModel = new Izin_kullanim_model($this->db);
     }
     public function index()
     {
@@ -31,8 +29,9 @@ class Personel_profil extends BaseController
         $data["mf"] = "personel_profil";
         $data["sf"] = "list";
         $data["personel_profil"] = $this->personelModel->personel_liste(array());
-
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data=$data;
+        return parent::run_view();
     }
     public function add()
     {
@@ -137,7 +136,9 @@ class Personel_profil extends BaseController
         $data["gorev"] = $this->gorevModel->c_all(); // Şimdi veri çekme sırasında
         $data["unvan"] = $this->unvanModel->c_all(); // Şimdi veri çekme sırasında
         $data["gorev_yeri"] = $this->gorevyeriModel->c_all(); // Şimdi veri çekme sırasında
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data=$data;
+        return parent::run_view();
     }
     public function update_form($personel_id)
     {

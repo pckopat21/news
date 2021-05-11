@@ -1,18 +1,18 @@
 <?php
 namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
+use App\Controllers\MyBaseController;
 use App\Models\Admin\Gorevyeri_model;
 use Config\Services;
 //$ip = $_SERVER['HTTP_CLIENT_IP']; //$this->input->ip_address() ;
 //$ip = $this->input->ip_address();
 //$localip = $HTTP_SERVER_VARS['HTTP_X_FORWARDED_FOR'];
-class Gorevyeri_tanim extends BaseController
+class Gorevyeri_tanim extends MyBaseController
 {
     public function __construct()
     {
-        helper(["Tools_helper"]);
-        $db = db_connect();
-        $this->gorevyeriModel = new Gorevyeri_model($db);
+        parent::__construct();
+        $this->gorevyeriModel = new Gorevyeri_model($this->db);
     }
     public function index()
     {
@@ -23,8 +23,9 @@ class Gorevyeri_tanim extends BaseController
         $data["mf"] = "gorevyeri_tanim";
         $data["sf"] = "list";
         $data["gorevyeri_tanim"] = $this->gorevyeriModel->goreyyeri(array());//bu kısım maincontent foraech için
-
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data = $data;
+        return parent::run_view();
+        //eski yapi return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
     }
     public function add()
     {
@@ -35,7 +36,9 @@ class Gorevyeri_tanim extends BaseController
         $data["mf"] = "gorevyeri_tanim";
         $data["sf"] = "add";
         $data["gorevyeri_tanim"] = $this->gorevyeriModel->goreyyeri(array());//bu kısım /add kısmı için
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data = $data;
+        return parent::run_view();
     }
     public function add_form()
     {
@@ -103,7 +106,9 @@ class Gorevyeri_tanim extends BaseController
         $data["mf"] = "gorevyeri_tanim";
         $data["sf"] = "edit";
         $data["gorevyeri_tanim"] = $this->gorevyeriModel->c_one(array("gorevyeri_id"=>$gorevyeri_id));
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data = $data;
+        return parent::run_view();
     }
     public function update_form($gorevyeri_id)
     {

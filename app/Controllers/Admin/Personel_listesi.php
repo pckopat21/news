@@ -1,24 +1,22 @@
 <?php
 namespace App\Controllers\Admin;
-use App\Controllers\BaseController;
-use App\Models\Admin\Personel_model;
+use App\Controllers\MyBaseController;
 use App\Models\Admin\Durum_model;
 use App\Models\Admin\Gorev_model;
 use App\Models\Admin\Unvan_model;
 use App\Models\Admin\Gorevyeri_model;
 use Config\Services;
 
-class Personel_listesi extends BaseController
+class Personel_listesi extends MyBaseController
 {
     public function __construct()
     {
-        helper(["Tools_helper"]);
-        $db = db_connect();
-        $this->personelModel = new Personel_model($db);
-        $this->durumModel = new Durum_model($db);
-        $this->gorevModel = new Gorev_model($db);
-        $this->unvanModel = new Unvan_model($db);
-        $this->gorevyeriModel = new Gorevyeri_model($db);
+        parent::__construct();
+        //$this->personelModel = new Personel_model($db);
+        $this->durumModel = new Durum_model($this->db);
+        $this->gorevModel = new Gorev_model($this->db);
+        $this->unvanModel = new Unvan_model($this->db);
+        $this->gorevyeriModel = new Gorevyeri_model($this->db);
     }
     public function index()
     {
@@ -28,12 +26,10 @@ class Personel_listesi extends BaseController
         $data["main"] = "admin";
         $data["mf"] = "personel_listesi";
         $data["sf"] = "list";
-        /*$db = db_connect();
-        $kategorilerModel = new Kategoriler_model($db);dinamik yapı açısından constrxcın oraya aldık
-        $data["kategoriler"] = $kategorilerModel->c_all(); bunu da düzenlemim gerekiyor bu kez de*/
         $data["personel"] = $this->personelModel->unvan(array());
-
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data=$data;
+        return parent::run_view();
     }
     public function filtered($personel_gorev)
     {
@@ -49,12 +45,14 @@ class Personel_listesi extends BaseController
         $data["personel"] = $this->personelModel->personel_liste(array("personel_gorev"=>$personel_gorev));
         //$data["personel"] = $this->personelModel->personel_listesi()->where("personel_gorev",$personel_gorev);
         //$data["personel"] = $this->personelModel->where('personel_gorev', $personel_gorev)->findAll();
+        //return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data=$data;
+        return parent::run_view();
 
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
     }
 
 
-    public function add()
+    public function add()//ihtiyaç yok sadece görüntüleme için yukarı index filltered yetiyor
     {
         $data = [];
         $data["title"] = "Personeller";

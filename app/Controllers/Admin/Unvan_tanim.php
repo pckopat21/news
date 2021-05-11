@@ -1,8 +1,7 @@
 <?php
 namespace App\Controllers\Admin;
-use App\Controllers\BaseController;
+use App\Controllers\MyBaseController;
 use App\Models\Admin\Durum_model;
-use App\Models\Admin\Izin_Model;
 use App\Models\Admin\Izin_tanim_model;
 use App\Models\Admin\Izin_turleri_model;
 use App\Models\Admin\Unvan_tanim_model;
@@ -10,17 +9,15 @@ use Config\Services;
 //$ip = $_SERVER['HTTP_CLIENT_IP']; //$this->input->ip_address() ;
 //$ip = $this->input->ip_address();
 //$localip = $HTTP_SERVER_VARS['HTTP_X_FORWARDED_FOR'];
-class Unvan_tanim extends BaseController
+class Unvan_tanim extends MyBaseController
 {
     public function __construct()
     {
-        helper(["Tools_helper"]);
-        $db = db_connect();
-        $this->izinModel = new Izin_model($db);
-        $this->izinturleriModel = new Izin_turleri_model($db);
-        $this->izintanimModel = new Izin_tanim_model($db);
-        $this->durumModel = new Durum_model($db);
-        $this->unvanModel = new Unvan_tanim_model($db);
+        parent::__construct();
+        $this->izinturleriModel = new Izin_turleri_model($this->db);
+        $this->izintanimModel = new Izin_tanim_model($this->db);
+        $this->durumModel = new Durum_model($this->db);
+        $this->unvanModel = new Unvan_tanim_model($this->db);
     }
     public function index()
     {
@@ -31,8 +28,9 @@ class Unvan_tanim extends BaseController
         $data["mf"] = "unvan_tanim";
         $data["sf"] = "list";
         $data["unvan_tanim"] = $this->unvanModel->unvan_tanim(array());//bu kısım maincontent foraech için
-
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data = $data;
+        return parent::run_view();
     }
     public function add()
     {
@@ -43,7 +41,9 @@ class Unvan_tanim extends BaseController
         $data["mf"] = "unvan_tanim";
         $data["sf"] = "add";
         $data["unvan_tanim"] = $this->unvanModel->unvan_tanim(array());//bu kısım maincontent foraech için
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //eski yapireturn view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data = $data;
+        return parent::run_view();
     }
     public function add_form()
     {
@@ -52,8 +52,8 @@ class Unvan_tanim extends BaseController
         ];
         $data = [
             "unvan_ad" => $this->request->getPost("unvan_ad"),
-            "unvan_aciklama" => $this->request->getPost("unvan_aciklama"),
-            "unvan_ekleyen" => session()->get("kullanici_mail")
+            "unvan_aciklama" => $this->request->getPost("unvan_aciklama")
+            //"unvan_ekleyen" => session()->get("kullanici_mail") sonra alan oluştururuz
         ];
         if ($this->request->getMethod() == "post"){
             helper("form");
@@ -98,7 +98,7 @@ class Unvan_tanim extends BaseController
                     );
                     session()-> setFlashdata("alarm", $infoMessage);
                 }
-                return redirect()->to(base_url("izin_tanim"));
+                return redirect()->to(base_url("unvan_tanim"));
             }
         }
     }
@@ -111,7 +111,9 @@ class Unvan_tanim extends BaseController
         $data["mf"] = "unvan_tanim";
         $data["sf"] = "edit";
         $data["unvan_tanim"] = $this->unvanModel->c_one(array("unvan_id"=>$unvan_id));
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data = $data;
+        return parent::run_view();
     }
     public function update_form($unvan_id)
     {
@@ -121,8 +123,8 @@ class Unvan_tanim extends BaseController
         $data = [
             "unvan_ad" => $this->request->getPost("unvan_ad"),
             "unvan_aciklama" => $this->request->getPost("unvan_aciklama"),
-            "unvan_durum" => $this->request->getPost("unvan_durum"),
-            "unvan_duzenleyen" => session()->get("kullanici_mail")
+            "unvan_durum" => $this->request->getPost("unvan_durum")
+            //"unvan_duzenleyen" => session()->get("kullanici_mail") sonra eklerim tablosunu
         ];
         if ($this->request->getMethod() == "post"){
             helper("form");
@@ -156,8 +158,8 @@ class Unvan_tanim extends BaseController
                     array(
                         "unvan_ad" => $this->request->getPost("unvan_ad"),
                         "unvan_aciklama" => $this->request->getPost("unvan_aciklama"),
-                        "unvan_durum" => $this->request->getPost("unvan_durum"),
-                        "unvan_duzenleyen" => session()->get("kullanici_mail")
+                        "unvan_durum" => $this->request->getPost("unvan_durum")
+                        //"unvan_duzenleyen" => session()->get("kullanici_mail") tablosu ekelnecek
                     )
                 );
                 if ($update){
@@ -179,7 +181,7 @@ class Unvan_tanim extends BaseController
             }
         }
     }
-    public function delete($id)
+    public function delete($id) //silme işlemini kullanmıyorum
     {
                 $update = $this->izinModel->update(
                     array("izin_id"=>$izin_id),

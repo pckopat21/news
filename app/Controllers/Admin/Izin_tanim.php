@@ -122,7 +122,9 @@ class Izin_tanim extends MyBaseController
         $data["durum"] = $this->durumModel->c_all(); // Şimdi veri çekme sırasında
         $data["izin_turleri"] = $this->izinturleriModel->c_all();
         $data["izin_tanim"] = $this->izintanimModel->c_one(array("id"=>$id));
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //önceki yapıda kullanılmaktayıdı return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data = $data;
+        return parent::run_view();
     }
     public function update_form($id)
     {

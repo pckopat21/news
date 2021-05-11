@@ -1,6 +1,6 @@
 <?php
 namespace App\Controllers\Admin;
-use App\Controllers\BaseController;
+use App\Controllers\MyBaseController;
 use App\Models\Admin\Kullanici_tanim_model;
 use App\Models\Admin\Personel_model;
 use App\Models\Admin\Yetki_model;
@@ -8,15 +8,14 @@ use Config\Services;
 //$ip = $_SERVER['HTTP_CLIENT_IP']; //$this->input->ip_address() ;
 //$ip = $this->input->ip_address();
 //$localip = $HTTP_SERVER_VARS['HTTP_X_FORWARDED_FOR'];
-class Kullanici_tanim extends BaseController
+class Kullanici_tanim extends MyBaseController
 {
     public function __construct()
     {
-        helper(["Tools_helper"]);
-        $db = db_connect();
-        $this->kullaniciModel = new Kullanici_tanim_model($db);
-        $this->personelModel = new Personel_model($db);
-        $this->yetkiModel = new Yetki_model($db);
+        parent::__construct();
+        $this->kullaniciModel = new Kullanici_tanim_model($this->db);
+        $this->personelModel = new Personel_model($this->db);
+        $this->yetkiModel = new Yetki_model($this->db);
     }
     public function index()
     {
@@ -27,9 +26,9 @@ class Kullanici_tanim extends BaseController
         $data["mf"] = "kullanici_tanim";
         $data["sf"] = "list";
         $data["kullanici_tanim"] = $this->kullaniciModel->kullanici_tanim(array());//bu kısım maincontent foraech için
-
-
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data=$data;
+        return parent::run_view();
+        //eski yapi return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
     }
     public function add()
     {
@@ -42,11 +41,12 @@ class Kullanici_tanim extends BaseController
         $data["kullanici_tanim"] = $this->kullaniciModel->kullanici_tanim(array());//bu kısım maincontent foraech için
         $data["personel"] = $this->personelModel->c_all();//bu kısım maincontent foraech için
         $data["yetki"] = $this->yetkiModel->c_all();//bu kısım maincontent foraech için
+        $this->data=$data;
+        return parent::run_view();
 
 
 
-
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //eski return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
     }
     public function add_form()
     {
@@ -118,7 +118,9 @@ class Kullanici_tanim extends BaseController
         $data["yetki"] = $this->yetkiModel->c_all(); // Şimdi veri çekme sırasında
         $data["personel"] = $this->personelModel->c_all();
         $data["kullanici_tanim"] = $this->kullaniciModel->c_one(array("kullanici_id"=>$kullanici_id));
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data=$data;
+        return parent::run_view();
     }
     public function update_form($kullanici_id)
     {
@@ -182,7 +184,7 @@ class Kullanici_tanim extends BaseController
             }
         }
     }
-    public function delete($id)
+    public function delete($id)//kullanılmıor silme işlemleri yerine aktif-pasif
     {
                 $update = $this->izinModel->update(
                     array("izin_id"=>$izin_id),

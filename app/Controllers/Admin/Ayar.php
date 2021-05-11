@@ -1,16 +1,15 @@
 <?php
 namespace App\Controllers\Admin;
-use App\Controllers\BaseController;
-use App\Models\Admin\Ayar_model;
+use App\Controllers\MyBaseController;
+//use App\Models\Admin\Ayar_model;
 use Config\Services;
 
-class Ayar extends BaseController
+class Ayar extends MyBaseController
 {
     public function __construct()
     {
-        helper(["Tools_helper"]);
-        $db = db_connect();
-        $this->ayarModel = new Ayar_model($db);
+        parent::__construct();
+
     }
 
     public function index()
@@ -21,11 +20,11 @@ class Ayar extends BaseController
         $data["main"] = "admin";
         $data["mf"] = "ayar";
         $data["sf"] = "list";
-        $data["ayar"] = $this->ayarModel->c_all(array());
-
-        return view("{$data['main']}/{$data['mf']}/{$data['sf']}/index", $data);
+        $this->data=$data;
+        return parent::run_view();
+        //return view("{$data['main']}/{$data['mf']}/{$data['sf']}/index", $data);
     }
-    public function add()
+    public function add()//ekleme işlemi yapılmamakta şimdilik
     {
         $data = [];
         $data["title"] = "Ayarlar";
@@ -34,7 +33,9 @@ class Ayar extends BaseController
         $data["mf"] = "ayar";
         $data["sf"] = "add";
         $data["ayar"] = $this->ayarModel->c_all(); // Şimdi veri çekme sırasında
-        return view("{$data['main']}/{$data['mf']}/{$data['sf']}/index", $data);
+        //return view("{$data['main']}/{$data['mf']}/{$data['sf']}/index", $data);
+        $this->data=$data;
+        return parent::run_view();
     }
     public function add_form()
     {
@@ -100,9 +101,10 @@ class Ayar extends BaseController
         $data["main"] = "admin";
         $data["mf"] = "ayar";
         $data["sf"] = "edit";
-        $data["ayar"] = $this->ayarModel->c_one(array("ayar_id" => $ayar_id));
-
-        return view("{$data['main']}/{$data['mf']}/{$data['sf']}/index", $data);
+        $data["ayar_edit"] = $this->ayarModel->c_one(array("ayar_id" => $ayar_id));
+        $this->data=$data;
+        return parent::run_view();
+        //return view("{$data['main']}/{$data['mf']}/{$data['sf']}/index", $data);
     }
     public function update_form($ayar_id)
     {

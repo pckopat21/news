@@ -68,6 +68,8 @@ abstract class MyBaseController extends BaseController
         $this->data["bildirim_baslayis"] = $this->izinModel->bildirim_baslayis(array());
         $this->data["bildirim_baslayiscount"] = $this->izinModel->bildirim_baslayiscount(array());
         $this->data["dashboard"] = $this->ayarModel->c_all(array());
+        $this->data["ayar"] = $this->ayarModel->c_all(array());
+
 
         $this->viewName = "{$this->data['main']}/{$this->data['mf']}/{$this->data['sf']}/index";
 

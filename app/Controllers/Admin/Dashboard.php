@@ -22,7 +22,7 @@ class Dashboard extends MyBaseController
         $data["main"] = "admin";
         $data["mf"] = "dashboard";
         $data["sf"] = "list";
-        $data["izin_listesi"] = $this->izinModel->izin_listesi(array());
+        //$data["izin_listesi"] = $this->izinModel->izin_listesi(array());
         /*$data["personel_kart"] = $this->personelModel->personel_kart(array());
         $data["personel_istat"] = $this->personelModel->personel_istat(array());
         $data["personel_listesi"] = $this->personelModel->personel_listesi(array());

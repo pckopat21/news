@@ -139,7 +139,9 @@ class Personel extends MyBaseController
         $data["gorev"] = $this->gorevModel->c_all(); // Şimdi veri çekme sırasında
         $data["unvan"] = $this->unvanModel->c_all(); // Şimdi veri çekme sırasında
         $data["gorev_yeri"] = $this->gorevyeriModel->c_all(); // Şimdi veri çekme sırasında
-        return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        //önceki yapı bureturn view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
+        $this->data = $data;
+        return parent::run_view();
     }
     public function update_form($personel_id)
     {
