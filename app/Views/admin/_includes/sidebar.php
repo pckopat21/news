@@ -36,7 +36,7 @@
                 <li class="nav-item has-treeview"><a href="<?= base_url("personel")?>" class="nav-link"><i class="nav-icon fas fa-user"></i><p>Personeller</p></a></li>
                 <li class="nav-item has-treeview"><a href="<?= base_url("izin")?>" class="nav-link"><i class="nav-icon fas fa-edit"></i><p>İzinler</p></a></li>
                 <li class="nav-item has-treeview"><a href="<?= base_url("izin_kullanim")?>" class="nav-link"><i class="nav-icon fas fa-calculator"></i><p>İzin Kullanım Durumları</p></a></li>
-                      <li class="nav-item">
+                <li class="nav-item">
                     <a href="#" class="nav-link"><i class="nav-icon fas fa-table"></i><p>Tanımlama İşlemleri<i class="fas fa-angle-left right"></i></p></a>
                     <ul class="nav nav-treeview"><li class="nav-item"><a href="<?= base_url("izin_tanim")?>" class="nav-link"><i class="far fa-circle nav-icon"></i><p>İzin Tanımlama</p></a></li>
                         <li class="nav-item"><a href="<?= base_url("unvan_tanim")?>" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Ünvan Tanımlama</p></a></li>
@@ -46,7 +46,6 @@
                 </li>
                 <li class="nav-item"><a href="<?= base_url("ayar")?>" class="nav-link"><i class="nav-icon fa fa-passport"></i><p>Ayarlar<span class="badge badge-info right">2</span></p></a></li>
                 <li class="nav-item has-treeview"><a href="<?= base_url("ayar/edit/0")?>" class="nav-link"><i class="nav-icon fas fa-cog"></i><p>Genel Ayarlar</p></a></li>
-
             </ul>
         </nav>
         <!--  sidebar-menu

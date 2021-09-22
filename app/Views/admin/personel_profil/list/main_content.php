@@ -19,10 +19,10 @@
                             <b>İlk İşe Giriş Tarihi:</b> <a class="float-right"><?= date("d-m-Y",strtotime($personel_profil->personel_isegiristarih))?></a>
                         </li>
                         <li class="list-group-item">
-                            <b>TC</b> <a class="float-right"><?= $personel_profil->personel_tc?></a>
+                            <b>TC Kimlik No:</b> <a class="float-right"><?= $personel_profil->personel_tc?></a>
                         </li>
                         <li class="list-group-item">
-                            <b>Friends</b> <a class="float-right">13,287</a>
+                            <b>Sicil Numarası:</b> <a class="float-right"><?= $personel_profil->personel_sicilno?></a>
                         </li>
                     </ul>
 

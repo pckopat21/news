@@ -15,17 +15,17 @@ class Personel_model
     }
     public function unvan($where = array())//one dediği tek bir listelemedir
     {
-        return $this-> db-> query("SELECT * FROM personel p inner join unvan u on u.unvan_id=p.personel_unvan 
-        inner join durum d on d.durum_id=p.unvan_id 
-        inner join gorev_yeri g on g.gorevyeri_id=p.personel_gorevyeri 
+        return $this-> db-> query("SELECT * FROM personel p inner join unvan u on u.unvan_id=p.personel_unvan
+        inner join durum d on d.durum_id=p.unvan_id
+        inner join gorev_yeri g on g.gorevyeri_id=p.personel_gorevyeri
         where p.personel_durum='1'
         order by personel_adsoyad ASC")->getresult();//sorgu yazıyorum
     }
     public function personel_list($where = array())//one dediği tek bir listelemedir
     {
-        return $this-> db-> query("SELECT * FROM personel p inner join unvan u on u.unvan_id=p.personel_unvan 
-        inner join durum d on d.durum_id=p.unvan_id 
-        inner join gorev_yeri g on g.gorevyeri_id=p.personel_gorevyeri 
+        return $this-> db-> query("SELECT * FROM personel p inner join unvan u on u.unvan_id=p.personel_unvan
+        inner join durum d on d.durum_id=p.unvan_id
+        inner join gorev_yeri g on g.gorevyeri_id=p.personel_gorevyeri
         where p.personel_durum='1'
         order by personel_adsoyad ASC")->getresult();//sorgu yazıyorum
     }
@@ -43,6 +43,15 @@ class Personel_model
     }
     public function personel_liste($where = array())
     {
+            $builder = $this->db->table("personel");
+            $builder->select('*');
+            $builder->join('durum','durum.durum_id=personel.unvan_id','INNER');
+            $builder->join('gorev_yeri','gorev_yeri.gorevyeri_id=personel.personel_gorevyeri','INNER');
+            $builder->join('unvan','unvan.unvan_id=personel.personel_unvan','INNER');
+            $builder->where('personel_gorev', $where);
+            $builder->where('personel.personel_durum',"1");
+            $data = $builder->get()->getResult();
+            return $data;
         /*$builder = $this->builder($this->table);
         $builder = $builder->where('personel_gorev', $personel_gorev);
         $builder = $builder->join('durum','durum.durum_id=personel.unvan_id');
@@ -61,18 +70,6 @@ class Personel_model
             $query=$this->db->get();
 
        return $query->result();*/
-        $builder = $this->db->table("personel");
-        $builder->select('*');
-        $builder->join('durum','durum.durum_id=personel.unvan_id','INNER');
-        $builder->join('gorev_yeri','gorev_yeri.gorevyeri_id=personel.personel_gorevyeri','INNER');
-        $builder->join('unvan','unvan.unvan_id=personel.personel_unvan','INNER');
-        $builder->where('personel_gorev', $where);
-        $builder->where('personel.personel_durum',"1");
-        $data = $builder->get()->getResult();
-        return $data;
-
-
-
     }
     /*public function personel_detay($where = array())//one dediği tek bir listelemedir
     {
@@ -98,10 +95,10 @@ class Personel_model
         p.personel_sicilno,p.personel_kan,p.personel_dogumtarihi,p.personel_isegiristarih,p.personel_resim,
         TIMESTAMPDIFF (YEAR,personel_isegiristarih,NOW()) yil,
         TIMESTAMPDIFF (Month,personel_isegiristarih,NOW())%12 ay,
-        TIMESTAMPDIFF (Day,DATE_ADD(personel_isegiristarih, 
-        INTERVAL TIMESTAMPDIFF (Month,personel_isegiristarih,NOW()) MONTH),NOW()) gun from personel p 
+        TIMESTAMPDIFF (Day,DATE_ADD(personel_isegiristarih,
+        INTERVAL TIMESTAMPDIFF (Month,personel_isegiristarih,NOW()) MONTH),NOW()) gun from personel p
         inner join unvan u on u.unvan_id=p.personel_unvan
-        left join izin i on i.izin_personel=p.personel_id  
+        left join izin i on i.izin_personel=p.personel_id
         where p.personel_durum='1'
         group by p.personel_id
         order by p.personel_siralama asc, p.personel_sicilno asc) t")->getresult();
@@ -128,7 +125,19 @@ where p.personel_durum='1'")->getresult();
         $builder->join('unvan u','u.unvan_id=p.personel_unvan','INNER');
         $builder->where('DAY(p.personel_dogumtarihi) = DAY(CURDATE())');
         $builder->where('month(p.personel_dogumtarihi) = month(CURDATE())');
+        $builder->where('p.personel_durum',"1");
+
         $data = $builder->get()->getResult();
+        return $data;
+    }
+    public function bildirim_dogumcount($where = array())
+    {
+        $builder = $this->db->table('personel');
+        $builder->selectCount('personel_id');
+        $builder->where('personel_durum',"1");
+        $builder->where('DAY(personel_dogumtarihi) = DAY(CURDATE())');
+        $builder->where('month(personel_dogumtarihi) = month(CURDATE())');
+        $data = $builder->get()->getRow();
         return $data;
     }
     public function c_all($where = array())//burada ise hepsini listeleme

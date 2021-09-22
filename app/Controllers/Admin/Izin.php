@@ -54,7 +54,7 @@ class Izin extends MyBaseController
     public function add_form()
     {
         $data = [
-            "validation" => Services::validation() //\Config\Services::validation()  alanını use ye ekliyoruz dinamik yapı
+            "validation" => Services::validation() //dinamik yapı
         ];
         $data = [
             "izin_personel" => $this->request->getPost("izin_personel"),
@@ -71,7 +71,8 @@ class Izin extends MyBaseController
             "izin_personel" => $this->request->getPost("izin_personel"),
             "izin_ekleyen_personel" => session()->get("kullanici_mail")
         ];
-        if ($this->request->getMethod() == "post"){
+        if ($this->request->getMethod() == "post")
+        {
             helper("form");
             $rules =[
                 "izin_personel" => [
@@ -87,7 +88,8 @@ class Izin extends MyBaseController
                     ]
                 ]
             ];
-            if (!$this->validate($rules)){//eğitimde validation olarak geçiyor ama burada çalışmıyor!!!!
+            if (!$this->validate($rules))
+            {//eğitimde validation olarak geçiyor ama burada çalışmıyor!!!!
                 $data = [];
                 $data["title"] = "İzinler";
                 $data["subtitle"] = "İzin Ekleme";
@@ -96,28 +98,28 @@ class Izin extends MyBaseController
                 $data["sf"] = "add";
                 $data["validation"] =$this->validator;
                 return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
-            } else{
-                /*$db = db_connect();
-                $kategorilerModel = new Kategoriler_model($db);-- dinamik olması açısından kaldırdık yukarı aldık
-                $ekle = $kategorilerModel->add($data); bunu da düzenliyoruz*/
+            } else
+                {
                 $ekle = $this->izinModel->add($data);
-                if ($ekle){
-                    $infoMessage = array(
-                        "type" => "success",
-                        "text" => "İşlem Başarılı",
-                        "message" => "Kaydetme İşlemi Başarılı!"
-                    );
-                    session()-> setFlashdata("alarm", $infoMessage);
-                } else{
+                    if ($ekle)
+                    {
+                        $infoMessage = array(
+                            "type" => "success",
+                            "text" => "İşlem Başarılı",
+                            "message" => "Kaydetme İşlemi Başarılı!"
+                        );
+                        session()-> setFlashdata("alarm", $infoMessage);
+                    } else
+                    {
                     $infoMessage = array(
                         "type" => "error",
                         "text" => "İşlem Başarısız",
                         "message" => "Kaydetme İşlemi Başarısız!"
                     );
                     session()-> setFlashdata("alarm", $infoMessage);
-                }
+                    }
                 return redirect()->to(base_url("izin"));
-            }
+                }
         }
     }
     public function edit($ayar_id)

@@ -34,10 +34,11 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Dashboard::index',["filter" => "adminfilter"]);
 $routes->get('/personel', 'Personel::index',["filter" => "adminfilter"]);
-$routes->get('/personel/(:alpha)/(:num)', 'Personel/$1/$2::index',["filter" => "adminfilter"]);
+//$routes->get('/personel/(:alpha)/(:num)', 'Personel/$1/$2::index',["filter" => "adminfilter"]);
 $routes->get('/personeller', 'Personeller::index',["filter" => "adminfilter"]);
 $routes->get('/personel_listesi', 'personel_listesi::index',["filter" => "adminfilter"]);
-$routes->get('/personel_listesi/(:alpha)/(:num)', 'personel_listesi/$1/$2::index',["filter" => "adminfilter"]);
+//$routes->get('/personel_listesi/(:alpha)/(:num)', 'personel_listesi/$1/$2::index',["filter" => "adminfilter"]);
+//$routes->get('/personel_profil/(:alpha)/(:num)', 'Personel_profil/$1/$2::index',["filter" => "adminfilter"]);
 $routes->get('/izin', 'izin::index',["filter" => "adminfilter"]);
 $routes->get('/ayar', 'ayar::index',["filter" => "adminfilter"]);
 $routes->get('/ayar/(:alpha)/(:num)', 'ayar/$1/$2::index',["filter" => "adminfilter"]);

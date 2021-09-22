@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="validationCustom03" class="form-label">Telefon</label>
-                                    <input type="text" class="form-control" name="personel_telefon" id="validationCustom03" data-inputmask='"mask": "9999999999"' data-mask required>
+                                    <input type="text" class="form-control" name="personel_telefon" value="5" id="validationCustom03" data-inputmask='"mask": "9999999999"' data-mask required>
                                     <div class="invalid-feedback">Please provide a valid city.</div>
                                 </div>
                                 <div class="form-group col-md-3">

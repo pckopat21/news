@@ -272,9 +272,6 @@ class Personel_profil extends MyBaseController
             return redirect()->to(base_url("izin"));
         }*/
     }
-
-
-
     /*public function delete($personel_id)
     {
         $delete = $this->personelModel->delete(array("personel_id"=>$personel_id));

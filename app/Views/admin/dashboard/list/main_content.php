@@ -13,7 +13,6 @@
         <div class="col-lg-2 col-6">
             <div class="small-box bg-gradient-orange"><div class="inner"><h3><?= $personel_istat->count?><sup style="font-size: 20px"></sup></h3><p><?= $personel_istat->gorev_ad?> Sayısı</p></div><div class="icon"><i class="fas fa-user"></i></div>
                          <a href="<?= base_url("personel_listesi/filtered/$personel_istat->personel_gorev")?>" class="small-box-footer">Personel Detayı <i class="fas fa-arrow-circle-right"></i></a>
-
             </div>
         </div>
         <?php } ?>
@@ -119,16 +118,12 @@
                                                     <li class="small"><span class="fa-li"><i class="fas fa-clinic-medical"></i></span><b>Kan Grubu: </b><?= $personel_kart->personel_kan?></li>
                                                     <li class="small"><span class="fa-li"><i class="fas fa-birthday-cake"></i></span><b>Doğum Tarihi: </b><?= date("d-m-Y",strtotime($personel_kart->personel_dogumtarihi)) ?></li>
                                                     <li class="small"><span class="fa-li"><i class="fas fa-briefcase"></i></span><b>İlk İşe Giriş: </b><?= date("d-m-Y",strtotime($personel_kart->personel_isegiristarih)) ?></li>
-
-
                                                 </ul>
                                             </div>
                                             <div class="col-5 text-center">
                                                 <img src="<?=  $personel_kart->personel_resim ?>" onerror="this.src='<?= base_url()?>/images/kgm.jpg'" alt="user-avatar" class="img-circle img-fluid">
                                                 <?php
-                                                if ($personel_kart->izin_bilgisi==1) {?>
-                                                    <button class="btn btn-danger btn-xs">İzinli</button>
-                                                <?php } ?>
+                                                if ($personel_kart->izin_bilgisi==1) {?><button class="btn btn-danger btn-xs">İzinli</button><?php } ?>
                                             </div>
                                         </div>
                                     </div>
