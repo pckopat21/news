@@ -71,7 +71,7 @@ KARAYOLLARI GENEL MÜDÜRLÜĞÜ<br>
                 </tr>
                 <tr>
                     <td width="137" height="11" colspan="2"><b><font face="Times New Roman"><span style="font-size:14pt;">&nbsp;İzin Adresi</span></font></b></td>
-                    <td width="925" height="11" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?= $izin_yazdir->izin_adresi; ?></span></td>
+                    <td width="925" height="11" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?php if ($izin_yazdir->izin_adresi == is_null(0)) echo $izin_yazdir->personel_adres; else echo $izin_yazdir->izin_adresi; ?></span></td>
                 </tr>
                 <tr>
                     <td width="137" height="15" colspan="2"><span style="font-size:14pt;">&nbsp;</span></td>
@@ -106,16 +106,16 @@ KARAYOLLARI GENEL MÜDÜRLÜĞÜ<br>
             <p align="center"><font style="font-size:14pt;"><b>UYGUNDUR</b></font></p>
             <p align="center"><font style="font-size:14pt;"><b>...../...../<?php echo date("Y"); ?><br>
 <br>
-&nbsp;</b></font></p> 
-    
-    <tr> 
+&nbsp;</b></font></p>
+
+    <tr>
         <td width="1060" height="429">
             <table border="0" cellpadding="0" cellspacing="0" width="1061" height="364">
                 <tr>
 
                     <td width="1061" height="77" colspan="2"> <br>
                         <p align="center"><font size="4"><b>PERSONEL ŞUBESİ MÜDÜRLÜĞÜNE</b></font></p>
-                       
+
                         <p>&nbsp;</p>
                         <p><font face="Times New Roman" style="font-size:14pt;">&emsp;&emsp;&emsp;Adı geçen personel yukarıda belirtilen iznini  ...../...../<?php echo date("Y"); ?>  -  ....../....../<?php echo date("Y"); ?> tarihleri arasında (......) gün kullanmıştır</font><br>
 &nbsp;</p>
@@ -154,61 +154,58 @@ KARAYOLLARI GENEL MÜDÜRLÜĞÜ<br>
 
 
 
-<?php 
-function yaziylasayi($sayi) { 
-    $o = array( 
-        'birlik' => array('bir', 'iki', 'üç', 'dört', 'beş', 'altı', 'yedi', 'sekiz', 'dokuz'), 
-        'onluk' => array('on', 'yirmi', 'otuz', 'kırk', 'elli', 'altmış', 'yetmiş', 'seksen', 'doksan'), 
-        'basamak' => array('yüz', 'bin', 'milyon', 'milyar', 'trilyon', 'katrilyon') 
-    ); 
+<?php
+function yaziylasayi($sayi) {
+    $o = array(
+        'birlik' => array('bir', 'iki', 'üç', 'dört', 'beş', 'altı', 'yedi', 'sekiz', 'dokuz'),
+        'onluk' => array('on', 'yirmi', 'otuz', 'kırk', 'elli', 'altmış', 'yetmiş', 'seksen', 'doksan'),
+        'basamak' => array('yüz', 'bin', 'milyon', 'milyar', 'trilyon', 'katrilyon')
+    );
 
-    // Sayıyı basamaklarına ayırıyoruz 
-    $basamak = array_reverse(str_split(implode('', array_reverse(str_split($sayi))), 3)); 
+    // Sayıyı basamaklarına ayırıyoruz
+    $basamak = array_reverse(str_split(implode('', array_reverse(str_split($sayi))), 3));
 
-    // Basamak sayısını belirliyoruz 
-    $basamak_sayisi = count($basamak); 
+    // Basamak sayısını belirliyoruz
+    $basamak_sayisi = count($basamak);
 
-    // Her basamak için: 
-    for($i=0; $i < $basamak_sayisi; ++$i) { 
-        // Sayıyı basamaklarına ayırdığımızda basamaklar tersine döndüğü için burada ufak bir işlem ile basamakları düzeltiyoruz 
-        $basamak[$i] = implode(array_reverse(str_split($basamak[$i]))); 
-         
-        // Eğer basamak 4, 8, 15, 16, 23, 42 gibi 1 veya 2 rakamlıysa başına 3 rakama tamamlayacak şekilde "0" ekliyoruz ki foreach döngüsünde problem olmasın 
-        if(strlen($basamak[$i]) == 1) 
-            $basamak[$i] = '00' . $basamak[$i]; 
-        elseif(strlen($basamak[$i]) == 2) 
-            $basamak[$i] = '0' . $basamak[$i]; 
-    } 
+    // Her basamak için:
+    for($i=0; $i < $basamak_sayisi; ++$i) {
+        // Sayıyı basamaklarına ayırdığımızda basamaklar tersine döndüğü için burada ufak bir işlem ile basamakları düzeltiyoruz
+        $basamak[$i] = implode(array_reverse(str_split($basamak[$i])));
 
-    $yenisayi = array(); 
+        // Eğer basamak 4, 8, 15, 16, 23, 42 gibi 1 veya 2 rakamlıysa başına 3 rakama tamamlayacak şekilde "0" ekliyoruz ki foreach döngüsünde problem olmasın
+        if(strlen($basamak[$i]) == 1)
+            $basamak[$i] = '00' . $basamak[$i];
+        elseif(strlen($basamak[$i]) == 2)
+            $basamak[$i] = '0' . $basamak[$i];
+    }
 
-    // Her basamak için: ($yenisayi değişkenine) 
-    foreach($basamak as $k => $b) { 
-        // basamağın ilk rakamı 0'dan büyük ise 
-        if($b[0] > 0) 
-            // değişkene rakamın harfle yazılışı ve "yüz" ekliyoruz 
-            $yenisayi[] = ($b[0] > 1 ? $o['birlik'][$b[0]-1] . ' ' : '') . $o['basamak'][0]; 
+    $yenisayi = array();
 
-        // basamağın 2. rakamı 0'dan büyük ise 
-        if($b[1] > 0) 
-            // değişkene rakamın harfle yazılışını ekliyoruz 
-            $yenisayi[] = $o['onluk'][$b[1]-1]; 
+    // Her basamak için: ($yenisayi değişkenine)
+    foreach($basamak as $k => $b) {
+        // basamağın ilk rakamı 0'dan büyük ise
+        if($b[0] > 0)
+            // değişkene rakamın harfle yazılışı ve "yüz" ekliyoruz
+            $yenisayi[] = ($b[0] > 1 ? $o['birlik'][$b[0]-1] . ' ' : '') . $o['basamak'][0];
 
-        // basamağın 3. rakamı 0'dan büyük ise 
-        if($b[2] > 0) 
-            // değişkene rakamın harfle yazılışını ekliyoruz 
-            $yenisayi[] = $o['birlik'][$b[2]-1]; 
+        // basamağın 2. rakamı 0'dan büyük ise
+        if($b[1] > 0)
+            // değişkene rakamın harfle yazılışını ekliyoruz
+            $yenisayi[] = $o['onluk'][$b[1]-1];
 
-        // değişkene basamağın ismini (bin, milyon, milyar) ekliyoruz 
-        if($basamak_sayisi > 1) 
-            $yenisayi[] = $o['basamak'][$basamak_sayisi-1]; 
+        // basamağın 3. rakamı 0'dan büyük ise
+        if($b[2] > 0)
+            // değişkene rakamın harfle yazılışını ekliyoruz
+            $yenisayi[] = $o['birlik'][$b[2]-1];
 
-        // Basamak sayısını azaltıyoruz ki her basamağın sonuna ilkinde ne yazıyorsa o yazılmasın 
-        --$basamak_sayisi; 
-    } 
-     
-    return implode(' ', $yenisayi); 
+        // değişkene basamağın ismini (bin, milyon, milyar) ekliyoruz
+        if($basamak_sayisi > 1)
+            $yenisayi[] = $o['basamak'][$basamak_sayisi-1];
+
+        // Basamak sayısını azaltıyoruz ki her basamağın sonuna ilkinde ne yazıyorsa o yazılmasın
+        --$basamak_sayisi;
+    }
+
+    return implode(' ', $yenisayi);
 }    ?>
-
-
-

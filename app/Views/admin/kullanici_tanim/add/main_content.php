@@ -52,7 +52,3 @@
     </div>
 </section>
 <section class="content"></section>
-
-
-
-

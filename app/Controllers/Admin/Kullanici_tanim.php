@@ -86,25 +86,42 @@ class Kullanici_tanim extends MyBaseController
                 $data["validation"] =$this->validator;
                 return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
             } else{
-
-                $ekle = $this->kullaniciModel->add($data);
-                if ($ekle){
+              $sonuc = $this->kullaniciModel->kullanici_mukerrer(
+                $kullanici_mail=$this->request->getPost("kullanici_mail"));
+                if ($sonuc == null)
+                {
+                  $ekle = $this->kullaniciModel->add($data);
+                  if ($ekle)
+                  {
                     $infoMessage = array(
-                        "type" => "success",
-                        "text" => "İşlem Başarılı",
-                        "message" => "Kaydetme İşlemi Başarılı!"
+                      "type" => "success",
+                      "text" => "İşlem Başarılı",
+                      "message" => "Kaydetme İşlemi Başarılı!"
                     );
                     session()-> setFlashdata("alarm", $infoMessage);
-                } else{
+                  }
+                  else
+                  {
                     $infoMessage = array(
-                        "type" => "error",
-                        "text" => "İşlem Başarısız",
-                        "message" => "Kaydetme İşlemi Başarısız!"
+                      "type" => "error",
+                      "text" => "İşlem Başarısız",
+                      "message" => "Kaydetme İşlemi Başarısız!"
                     );
                     session()-> setFlashdata("alarm", $infoMessage);
+                  }
+                  return redirect()->to(base_url("kullanici_tanim"));
                 }
-                return redirect()->to(base_url("kullanici_tanim"));
-            }
+                else
+                {
+                  $infoMessage = array(
+                    "type" => "error",
+                    "text" => "İşlem Başarısız! Mükerrer Kayda Rastlandı! ",
+                    "message" => "Kullanıcı Kaydetme İşlemi Başarısız! Lütfen Kullanıcının Daha Önce Eklenmediğinden Emin Olun"
+                  );
+                  session()-> setFlashdata("alarm", $infoMessage);
+                  return redirect()->to(base_url("kullanici_tanim/add"));
+                }
+              }
         }
     }
     public function edit($kullanici_id)

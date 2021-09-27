@@ -44,31 +44,17 @@
                                     <td><?= date("d-m-Y",strtotime($izin->izin_bitis)) ?></td>
                                     <td><?= date("d-m-Y",strtotime($izin->izin_isebaslayis)) ?></td>
                                     <td><?= $izin->izin_suresi?></td>
-                                    <td><center><?php if ($izin->unvan_id==1 && $izin->izin_turid==1 && $izin->personel_sozlesmelimi==0) {?>
-                                                <a target="_blank"
-                                                   href="<?= base_url("Yazdir/yonlendir/yazdir_memur/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
-                                            <?php } else if ($izin->unvan_id==2 && $izin->izin_turid==1 && $izin->personel_sozlesmelimi==0)  {?>
-                                                <a target="_blank"
-                                                   href="<?= base_url("Yazdir/yonlendir/yazdir_isci/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
-                                            <?php } else if ($izin->unvan_id==1 && $izin->izin_turid==1 && $izin->personel_sozlesmelimi==1)  {?>
-                                                <a target="_blank"
-                                                   href="<?= base_url("Yazdir/yonlendir/yazdir_sozlesmeli/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
-                                            <?php } else if ($izin->unvan_id==3 && $izin->izin_turid==1 && $izin->personel_sozlesmelimi==0)  {?>
-                                                <a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdir_surekliisci/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
-                                            <?php } else if ($izin->unvan_id==1 && $izin->personel_sozlesmelimi==0 && $izin->izin_turid==6)  {?>
-                                                <a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdir_memurvefat/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
-                                            <?php }else if ($izin->unvan_id==1 /*&& $izin->personel_sozlesmelimi==0*/ && $izin->izin_turid==3)  {?>
-                                                <a target="_blank"
-                                                   href="<?= base_url("Yazdir/yonlendir/yazdirmemurrapor/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
-                                            <?php }else if ($izin->unvan_id==1 && $izin->personel_sozlesmelimi==0 && $izin->izin_turid==9)  {?>
-                                                <a target="_blank"
-                                                   href="<?= base_url("Yazdir/yonlendir/yazdir_memurevlilik/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
-                                            <?php }else if ($izin->unvan_id==1 && $izin->personel_sozlesmelimi==1 && $izin->izin_turid==9)
-                                            {?>
-                                                <a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdir_sozlesmelievlilik/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
-                                            <?php }
-                                            ?></center></td>
-                                    <td><button data-url="<?= base_url("{$mf}/delete/$izin->izin_id")?>" class="btn btn-danger btn-xs delete-buton">Sil</button></td>
+                                    <td><center><?php if ($izin->unvan_id==1 && $izin->izin_turid==1 && $izin->personel_sozlesmelimi==0) {?><a target="_blank"href="<?= base_url("Yazdir/yonlendir/yazdir_memur/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
+                                    <?php } else if ($izin->unvan_id==2 && $izin->izin_turid==1 && $izin->personel_sozlesmelimi==0)  {?><a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdir_isci/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
+                                  <?php } else if ($izin->unvan_id==1 && $izin->izin_turid==1 && $izin->personel_sozlesmelimi==1)  {?><a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdir_sozlesmeli/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
+                                <?php } else if ($izin->unvan_id==3 && $izin->izin_turid==1 && $izin->personel_sozlesmelimi==0)  {?><a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdir_surekliisci/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
+                              <?php } else if ($izin->unvan_id==1 && $izin->personel_sozlesmelimi==0 && $izin->izin_turid==6)  {?><a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdir_memurvefat/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
+                            <?php } else if ($izin->unvan_id==2 && $izin->personel_sozlesmelimi==0 && $izin->izin_turid==6)  {?><a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdir_iscivefat/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
+                          <?php } else if ($izin->unvan_id==1 /*&& $izin->personel_sozlesmelimi==0*/ && $izin->izin_turid==3)  {?><a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdirmemurrapor/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
+                        <?php } else if ($izin->unvan_id==1 && $izin->personel_sozlesmelimi==0 && $izin->izin_turid==9)  {?><a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdir_memurevlilik/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
+                      <?php } else if ($izin->unvan_id==1 && $izin->personel_sozlesmelimi==1 && $izin->izin_turid==9){?><a target="_blank" href="<?= base_url("Yazdir/yonlendir/yazdir_sozlesmelievlilik/".$izin->izin_id)?>"><button class="btn btn-round btn-primary btn-xs">Yazdır</button></a>
+                    <?php }
+                    ?></center></td><td><button data-url="<?= base_url("{$mf}/delete/$izin->izin_id")?>" class="btn btn-danger btn-xs delete-buton">Sil</button></td>
                                 </tr>
                             <?php } ?>
                         <?php } ?>

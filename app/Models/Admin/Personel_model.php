@@ -13,6 +13,16 @@ class Personel_model
     {
         return $this-> db-> table($this-> table)-> where($where)-> get()-> getRow();
     }
+    public function personel_mukerrer($personel_tc, $personel_sicilno)
+    {
+        $builder = $this->db->table('personel');
+        $builder->select('*');
+        $builder->where('personel_durum',"1");
+        $builder->where('personel_tc',$personel_tc);
+        $builder->orWhere('personel_sicilno',$personel_sicilno);
+        $data = $builder->get()->getRow();
+        return $data;
+    }
     public function unvan($where = array())//one dediği tek bir listelemedir
     {
         return $this-> db-> query("SELECT * FROM personel p inner join unvan u on u.unvan_id=p.personel_unvan

@@ -18,7 +18,7 @@ KARAYOLLARI GENEL MÜDÜRLÜĞÜ<br>
 <table border="0" cellpadding="0" cellspacing="0" width="1060" height="43">
     <tr>
         <td width="1060" height="43">
-            <p align="center"><b><font face="Times New Roman"><span style="font-size:16pt;">MEMUR İZİN FORMU</span></font></b><font size="4"></font></p>
+            <p align="center"><b><font face="Times New Roman"><span style="font-size:16pt;">İŞÇİ İZİN FORMU</span></font></b><font size="4"></font></p>
         </td>
     </tr>
 </table>
@@ -40,20 +40,16 @@ KARAYOLLARI GENEL MÜDÜRLÜĞÜ<br>
                     <td width="1062" height="67" colspan="5">
                         <p align="left"><font face="Times New Roman" style="font-size:14pt;"><span>
 <p align="center"><font size="4"><b>KARAYOLLARI 5. BÖLGE MÜDÜRLÜĞÜNE</b></font></p> <br>
-&emsp;&emsp;&emsp;657 Sayılı Devlet Memurları Kanununun 102. maddesine göre <?php echo date("d.m.Y",strtotime($izin_yazdir->izin_baslayis)) ?> tarihinden geçerli olmak üzere <?= $izin_yazdir->izin_yil ?> yılına <br>&emsp;mahsuben <?= $izin_yazdir->izin_suresi ?> (<?php echo yaziylasayi($izin_yazdir->izin_suresi) ?>) günlük senelik izin verilmesini arz ederim.
+&emsp;&emsp;&emsp;Toplu İş Sözleşmesinin 61. Maddesinin C bendine göre <?php echo date("d.m.Y",strtotime($izin_yazdir->izin_baslayis)) ?> tarihinden geçerli olmak üzere <br>&emsp;<?= $izin_yazdir->izin_vefat ?> vefatından dolayı <?= $izin_yazdir->izin_suresi ?> (<?php echo yaziylasayi($izin_yazdir->izin_suresi) ?>) günlük vefat izni verilmesini arz ederim.
 <br>
 &nbsp;</span></font></p>
                     </td>
                 </tr>
                 <tr>
                     <td width="920" height="33" colspan="4">&nbsp;</td>
-                   <td width="140" height="40"><font face="Times New Roman" style="font-size:14pt;">..../....../<?php echo date("Y");?></font></td>
+                   <td width="140" height="40"><font face="Times New Roman" style="font-size:14pt;">...../...../<?php echo date("Y");?></font></td>
                 </tr>
-                <tr>
-                    <td width="1062" height="34" colspan="3">
-                        <font face="Times New Roman" style="font-size:14pt;"><p>&nbsp;(......)  gün yol izni istiyorum / istemiyorum.<br><br>&nbsp;</b></p></font>
-                    </td>
-                </tr>
+
                 <tr>
                     <td width="137" height="17" colspan="2"><b><font face="Times New Roman"><span style="font-size:14pt;">&nbsp;T.C. Kimlik No</span></font></b></td>
                     <td width="925" height="17" colspan="3"><b><span style="font-size:14pt;">:</span></b><span style="font-size:14pt;"> <?= $izin_yazdir->personel_tc; ?></span></td>
@@ -128,9 +124,7 @@ KARAYOLLARI GENEL MÜDÜRLÜĞÜ<br>
                 <tr>
                     <td width="935" height="119"><font face="Times New Roman" style="font-size:14pt;">&emsp;&emsp;&emsp;Bilgilerinize arz ederim.</font></td>
                 </tr>
-                <tr>
-                    <td width="935" height="51"><font face="Times New Roman" style="font-size:14pt;">&emsp;&emsp;&emsp;(...........) günü yol iznidir.</font></td>
-                </tr>
+
                 <tr>
                     <td width="1061" height="66" colspan="2">&nbsp;</td>
                 </tr>

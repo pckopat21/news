@@ -35,8 +35,17 @@ class Izin extends MyBaseController
         /*$db = db_connect();
         $kategorilerModel = new Kategoriler_model($db);dinamik yapı açısından constrxcın oraya aldık
         $data["kategoriler"] = $kategorilerModel->c_all(); bunu da düzenlemim gerekiyor bu kez de*/
-
-
+    }
+    public function onay()
+    {
+      $this->data = [];
+      $this->data["title"] = "İzin Onay";
+      $this->data["subtitle"] = "Personel İzin Onaylama Ekranı";
+      $this->data["main"] = "admin";
+      $this->data["mf"] = "izin";
+      $this->data["sf"] = "onay";
+      $this->data["izin_onay"] = $this->izinModel->bildirim_onay(array());
+      return parent::run_view();
     }
     public function add()
     {
@@ -98,28 +107,47 @@ class Izin extends MyBaseController
                 $data["sf"] = "add";
                 $data["validation"] =$this->validator;
                 return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
-            } else
+            }
+            else
+            {
+              $sonuc = $this->izinModel->izin_mukerrer(
+                $izin_baslayis=$this->request->getPost("izin_baslayis"),
+                $izin_bitis=$this->request->getPost("izin_bitis"),
+                $izin_personel=$this->request->getPost("izin_personel"),
+                $izin_yil=$this->request->getPost("izin_yil"));
+                if ($sonuc == null)
                 {
-                $ekle = $this->izinModel->add($data);
-                    if ($ekle)
-                    {
-                        $infoMessage = array(
-                            "type" => "success",
-                            "text" => "İşlem Başarılı",
-                            "message" => "Kaydetme İşlemi Başarılı!"
-                        );
-                        session()-> setFlashdata("alarm", $infoMessage);
-                    } else
-                    {
+                  $ekle = $this->izinModel->add($data);
+                  if ($ekle)
+                  {
                     $infoMessage = array(
-                        "type" => "error",
-                        "text" => "İşlem Başarısız",
-                        "message" => "Kaydetme İşlemi Başarısız!"
+                      "type" => "success",
+                      "text" => "İşlem Başarılı",
+                      "message" => "Kaydetme İşlemi Başarılı!"
                     );
                     session()-> setFlashdata("alarm", $infoMessage);
-                    }
-                return redirect()->to(base_url("izin"));
+                  }
+                  else
+                  {
+                    $infoMessage = array(
+                      "type" => "error",
+                      "text" => "İşlem Başarısız",
+                      "message" => "Kaydetme İşlemi Başarısız!"
+                    );
+                    session()-> setFlashdata("alarm", $infoMessage);
+                  }
+                  return redirect()->to(base_url("izin"));
                 }
+                else {
+                  $infoMessage = array(
+                    "type" => "error",
+                    "text" => "İşlem Başarısız! Mükerrer Kayda Rastlandı! ",
+                    "message" => "İzin Kaydetme İşlemi Başarısız! Lütfen İznin Daha Önce Eklenmediğinden Emin Olun"
+                  );
+                  session()-> setFlashdata("alarm", $infoMessage);
+                  return redirect()->to(base_url("izin/add"));
+                }
+              }
         }
     }
     public function edit($ayar_id)
@@ -226,6 +254,39 @@ class Izin extends MyBaseController
                     session()-> setFlashdata("alarm", $infoMessage);
                 }
                 return redirect()->to(base_url("izin"));
+        /*$delete = $this->izinModel->delete(array("izin_id"=>$izin_id)); bu fonksiyon ile veriyi siliyorum ama ben yukarıda durumu 1 yapmanın daha uygun olduğunu düşündüm
+        if ($delete){
+            return redirect()->to(base_url("izin"));
+        }else{
+            return redirect()->to(base_url("izin"));
+        }*/
+    }
+    public function onayla($izin_id)
+    {
+                $update = $this->izinModel->update(
+                    array("izin_id"=>$izin_id),
+                    array(
+                        "izin_onay" =>$this->request->getPost("izin_onay") === null ? 1 : 0,
+                        'izin_onaylayan' => session()->get("kullanici_mail")
+                       // 'izin_silen_ip' => $this->getIPAddress()
+                    )
+                );
+                if ($update){
+                    $infoMessage = array(
+                        "type" => "success",
+                        "text" => "İşlem Başarılı",
+                        "message" => "İzin Onaylama İşlemi Başarılı!"
+                    );
+                    session()-> setFlashdata("alarm", $infoMessage);
+                } else{
+                    $infoMessage = array(
+                        "type" => "error",
+                        "text" => "İşlem Başarısız",
+                        "message" => "İzin Onaylama İşlemi Başarısız!"
+                    );
+                    session()-> setFlashdata("alarm", $infoMessage);
+                }
+                return redirect()->to(base_url("izin/onay"));
         /*$delete = $this->izinModel->delete(array("izin_id"=>$izin_id)); bu fonksiyon ile veriyi siliyorum ama ben yukarıda durumu 1 yapmanın daha uygun olduğunu düşündüm
         if ($delete){
             return redirect()->to(base_url("izin"));

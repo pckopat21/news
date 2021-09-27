@@ -102,28 +102,46 @@ class Personel extends MyBaseController
                 $data["sf"] = "add";
                 $data["validation"] =$this->validator;
                 return view( "{$data['main']}/{$data['mf']}/{$data['sf']}/index",$data);
-            } else{
-                /*$db = db_connect();
-                $kategorilerModel = new Kategoriler_model($db);-- dinamik olması açısından kaldırdık yukarı aldık
-                $ekle = $kategorilerModel->add($data); bunu da düzenliyoruz*/
-                $ekle = $this->personelModel->add($data);
-                if ($ekle){
-                    $infoMessage = array(
-                        "type" => "success",
-                        "text" => "İşlem Başarılı",
-                        "message" => "Personel Kaydetme İşlemi Başarılı!"
-                    );
-                    session()-> setFlashdata("alarm", $infoMessage);
-                } else{
-                    $infoMessage = array(
-                        "type" => "error",
-                        "text" => "İşlem Başarısız",
-                        "message" => "Personel Kaydetme İşlemi Başarısız!"
-                    );
-                    session()-> setFlashdata("alarm", $infoMessage);
-                }
-                return redirect()->to(base_url("personel"));
             }
+            else
+            {
+              $sonuc = $this->personelModel->personel_mukerrer(
+                $personel_tc=$this->request->getPost("personel_tc"),
+                $personel_sicilno=$this->request->getPost("personel_sicilno"));
+                if ($sonuc == null)
+                {
+                  $ekle = $this->personelModel->add($data);
+                  if ($ekle)
+                  {
+                    $infoMessage = array(
+                      "type" => "success",
+                      "text" => "İşlem Başarılı",
+                      "message" => "Kaydetme İşlemi Başarılı!"
+                    );
+                    session()-> setFlashdata("alarm", $infoMessage);
+                  }
+                  else
+                  {
+                    $infoMessage = array(
+                      "type" => "error",
+                      "text" => "İşlem Başarısız",
+                      "message" => "Kaydetme İşlemi Başarısız!"
+                    );
+                    session()-> setFlashdata("alarm", $infoMessage);
+                  }
+                  return redirect()->to(base_url("personel"));
+                }
+                else
+                {
+                  $infoMessage = array(
+                    "type" => "error",
+                    "text" => "İşlem Başarısız! Mükerrer Kayda Rastlandı! ",
+                    "message" => "Personel Kaydetme İşlemi Başarısız! Lütfen Personelin Daha Önce Eklenmediğinden Emin Olun"
+                  );
+                  session()-> setFlashdata("alarm", $infoMessage);
+                  return redirect()->to(base_url("personel/add"));
+                }
+              }
         }
     }
     public function edit($personel_id)

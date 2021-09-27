@@ -7,7 +7,7 @@
         <li class="nav-item d-none d-sm-inline-block"><a href="<?= base_url('iletisim')?>" class="nav-link">İletişim</a></li>
     </ul>
     <ul class="navbar-nav ml-auto">
-        <?php if (isset($bildirim_dogumgunu)){ ?>
+        <?php if (isset($bildirim_baslayis)){ ?>
         <?= view("admin/bildirim/bildirim_baslayis")?>
         <?php } ?>
         <?php if (isset($bildirim_dogumgunu)){ ?>

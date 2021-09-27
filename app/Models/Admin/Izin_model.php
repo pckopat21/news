@@ -27,11 +27,14 @@ class Izin_model
     {
         return $this-> db-> table($this-> table)-> where($where)-> get()-> getResult();//verilerin tamamı result
     }
-    public function izin_mukerrer($where = array())
+    public function izin_mukerrer($izin_baslayis, $izin_bitis, $izin_personel, $izin_yil)
     {
         $builder = $this->db->table('izin');
-        $builder->selectCount('izin_onay');;
-        $builder->where('izin_onay',"1");
+        $builder->select('*');
+        $builder->where('izin_baslayis',$izin_baslayis);
+        $builder->where('izin_bitis',$izin_bitis);
+        $builder->where('izin_personel',$izin_personel);
+        $builder->where('izin_yil',$izin_yil);
         $builder->where('izin_durum',"1");
         $data = $builder->get()->getRow();
         return $data;
@@ -94,10 +97,13 @@ class Izin_model
     }
     public function bildirim_onay($where = array())
     {
-        $builder = $this->db->table('izin');
+        $builder = $this->db->table('izin i');
         $builder->select('*');
-        $builder->where('izin_onay',"0");
-        $builder->where('izin_durum',"1");
+        $builder->join('personel p','p.personel_id=i.izin_personel','INNER');
+        $builder->join('durum d','d.durum_id=p.unvan_id','INNER');
+        $builder->join('unvan u','u.unvan_id=p.personel_unvan','INNER');
+        $builder->where('i.izin_onay',"0");
+        $builder->where('i.izin_durum',"1");
         $data = $builder->get()->getResult();
         return $data;
     }

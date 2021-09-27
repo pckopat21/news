@@ -17,6 +17,16 @@ class Kullanici_tanim_model
     {
         return $this-> db-> table($this-> table)-> where($where)-> get()-> getResult();//verilerin tamamı result
     }
+    public function kullanici_mukerrer($kullanici_mail)
+    {
+        $builder = $this->db->table('kullanici');
+        $builder->select('*');
+        $builder->where('kullanici_durum',"1");
+        $builder->where('kullanici_mail',$kullanici_mail);
+
+        $data = $builder->get()->getRow();
+        return $data;
+    }
     public function kullanici_tanim($where = array())//one dediği tek bir listelemedir
     {
         $builder = $this->db->table($this->table);

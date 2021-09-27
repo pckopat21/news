@@ -4,20 +4,15 @@
         <img src="<?= base_url()?>/images/kgm.jpg" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light"><?= $title?></span>
     </a>
-
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="<?= base_url()?>/images/kgm.jpg" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block"><?= findAdmin("kullanici_adsoyad") ?></a>
-            </div>
+            <div class="image"><img src="<?= base_url()?>/images/kgm.jpg" class="img-circle elevation-2" alt="User Image"></div>
+            <div class="info"><a href="#" class="d-block"><?= findAdmin("kullanici_adsoyad") ?></a></div>
         </div>
-
-        <!-- SidebarSearch Form -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex"><div class="info"><a href="guncelleme" class="d-block">Versiyon: </a></div></div>
+        <!-- SidebarSearch Form
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
                 <input class="form-control form-control-sidebar" type="search" placeholder="Menüde Arama Yapın" aria-label="Search">
@@ -27,7 +22,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Sidebar Menu-->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -45,7 +40,7 @@
                     </ul>
                 </li>
                 <li class="nav-item"><a href="<?= base_url("ayar")?>" class="nav-link"><i class="nav-icon fa fa-passport"></i><p>Ayarlar<span class="badge badge-info right">2</span></p></a></li>
-                <li class="nav-item has-treeview"><a href="<?= base_url("ayar/edit/0")?>" class="nav-link"><i class="nav-icon fas fa-cog"></i><p>Genel Ayarlar</p></a></li>
+              <!--  <li class="nav-item has-treeview"><a href="<?= base_url("ayar/edit/0")?>" class="nav-link"><i class="nav-icon fas fa-cog"></i><p>Genel Ayarlar</p></a></li> -->
             </ul>
         </nav>
         <!--  sidebar-menu

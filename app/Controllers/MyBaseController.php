@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Admin\Ayar_model;
 use App\Models\Admin\Izin_Model;
 use App\Models\Admin\Personel_model;
+use App\Models\Admin\Guncelleme_model;
 
 abstract class MyBaseController extends BaseController
 {
@@ -24,7 +25,10 @@ abstract class MyBaseController extends BaseController
      * @var Izin_Model
      */
     protected $izinModel;
-
+    /**
+     * @var Guncelleme_model
+     */
+    protected $guncellemeModel;
     /**
      * @var string
      */
@@ -52,6 +56,7 @@ abstract class MyBaseController extends BaseController
         $this->izinModel = new Izin_model($this->db);
         $this->personelModel = new Personel_model($this->db);
         $this->ayarModel = new Ayar_model($this->db);
+        $this->guncellemeModel = new Guncelleme_model($this->db);
         $this->data = [];
     }
     public function run_view()
