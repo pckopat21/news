@@ -116,16 +116,16 @@ class Personel_model
     public function personel_istat($where = array())
     {
         return $this->db->query("SELECT p.personel_gorev,g.gorev_ad,COUNT(*) as count  from personel p
-inner join gorev g on g.gorev_id=p.personel_gorev
-where p.personel_durum='1'
-GROUP BY p.personel_gorev
-ORDER BY g.gorev_id")->getresult();
+        inner join gorev g on g.gorev_id=p.personel_gorev
+        where p.personel_durum='1'
+        GROUP BY p.personel_gorev
+        ORDER BY g.gorev_id")->getresult();
     }
     public function personel_listesi($where = array())
     {
         return $this->db->query("SELECT COUNT(*) as count  from personel p
-inner join gorev g on g.gorev_id=p.personel_gorev
-where p.personel_durum='1'")->getresult();
+        inner join gorev g on g.gorev_id=p.personel_gorev
+        where p.personel_durum='1'")->getresult();
     }
     public function bildirim_dogumgunu($where = array())
     {

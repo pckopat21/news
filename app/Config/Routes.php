@@ -48,6 +48,7 @@ $routes->get('/unvan_tanim', 'unvan_tanim::index',["filter" => "adminfilter"]);
 $routes->get('/kullanici_tanim', 'kullanici_tanim::index',["filter" => "adminfilter"]);
 $routes->get('/gorevyeri_tanim', 'gorevyeri_tanim::index',["filter" => "adminfilter"]);
 $routes->get('/dashboard', 'Dashboard::index',["filter" => "adminfilter"]);
+$routes->get('/guncelleme', 'guncelleme::index',["filter" => "adminfilter"]);
 $routes->get('yazdir/(:alpha)/(:num)', 'Yazdir::Yazdir/$1/$2',["filter" => "adminfilter"]);
 //$routes->add('personel_listesi/(:num)', 'Personel_listesi::index/$1');
 //$routes->add('personel_listesi/(:num)', 'Personel_listesi::filtered/$1');

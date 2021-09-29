@@ -26,8 +26,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="validationCustom03" class="form-label">E-Posta</label>
-                                    <input type="email" class="form-control" name="personel_eposta" id="validationCustom03" required>
-                                    <div class="invalid-feedback">Please provide a valid city.</div>
+                                    <input type="email" class="form-control" name="personel_eposta" id="validationCustom03">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="validationCustom03" class="form-label">Telefon</label>

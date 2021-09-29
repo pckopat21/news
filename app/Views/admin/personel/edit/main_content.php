@@ -19,7 +19,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="validationCustom03" class="form-label">E-Posta</label>
-                                <input type="email" class="form-control" name="personel_eposta" id="validationCustom03" value="<?= $personel->personel_eposta?>" required>
+                                <input type="email" class="form-control" name="personel_eposta" id="validationCustom03" value="<?= $personel->personel_eposta?>">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="validationCustom03" class="form-label">Telefon</label>
@@ -132,4 +132,3 @@
     </div>
 </section>
 <section class="content"></section>
-

@@ -29,4 +29,9 @@ class Ayar_model
     {
         return $this->db->table($this->table)->where($where)->delete();
     }
+    public function ayar_versiyon($where = array())
+    {
+        return $this->db->query("SELECT COUNT(*) as count  from ayar
+        where ayar_durum='1'")->getresult();
+    }
 }

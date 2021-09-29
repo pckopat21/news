@@ -11,7 +11,7 @@
             <div class="image"><img src="<?= base_url()?>/images/kgm.jpg" class="img-circle elevation-2" alt="User Image"></div>
             <div class="info"><a href="#" class="d-block"><?= findAdmin("kullanici_adsoyad") ?></a></div>
         </div>
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex"><div class="info"><a href="guncelleme" class="d-block">Versiyon: </a></div></div>
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex"><div class="info"><a href="guncelleme" class="d-block"<?php foreach ($ayar as $ayar) {?><h3><?= $ayar->ayar_versiyon?></h3></div> <?php } ?> </a></div>
         <!-- SidebarSearch Form
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
